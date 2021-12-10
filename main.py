@@ -1,7 +1,3 @@
-
-import kivy
-kivy.require('1.0.7')
-
 from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
@@ -14,25 +10,24 @@ class MainApp(App):
         main_lineout = BoxLayout(orientation="vertical", padding=10, spacing=10)
         self.solution = TextInput(multiline=False, readonly=False, halign="right", font_size=55, input_filter="float")
         main_lineout.add_widget(self.solution)
-        buttons= [
-            ["7","8","9","/"],
-            ["4","5","6","*"],
-            ["1","2","3","-"],
-            [".","0","C","+"]]
+        buttons = [
+            ["7", "8", "9", "/"],
+            ["4", "5", "6", "*"],
+            ["1", "2", "3", "-"],
+            [".", "0", "C", "+"]]
         for row in buttons:
-            h_layout= BoxLayout()
+            h_layout = BoxLayout()
             for label in row:
-                button = Button(text=label, pos_hint={"center_x":0.5,"center_y":0.5})
+                button = Button(text=label, pos_hint={"center_x": 0.5, "center_y": 0.5})
                 button.bind(on_press=self.on_button_press)
                 h_layout.add_widget(button)
             main_lineout.add_widget(h_layout)
 
-        layout2= BoxLayout()
+        layout2 = BoxLayout()
 
         ques = Button(text="Жаренков - лох?", pos_hint={"center_x": 0.5, "center_y": 0.5})
         ques.bind(on_press=self.on_ques)
         layout2.add_widget(ques)
-
 
         skobkaon = Button(text="(", pos_hint={"center_x": 0.5, "center_y": 0.5})
         skobkaon.bind(on_press=self.on_button_press)
@@ -46,28 +41,24 @@ class MainApp(App):
         eq_button.bind(on_press=self.on_solution)
         layout2.add_widget(eq_button)
 
-
         main_lineout.add_widget(layout2)
         return main_lineout
 
     def on_button_press(self, instance):
-        if instance.text =="C":
-            self.solution.text =""
+        if instance.text == "C":
+            self.solution.text = ""
         else:
             self.solution.text += instance.text
 
-    def on_ques(self,instance):
-
+    def on_ques(self, instance):
             self.solution.text = "ЛОХ ПЗДЦ"
 
-    def on_solution(self,instance):
+    def on_solution(self, instance):
         if self.solution.text:
             try:
-                self.solution.text=str(eval(self.solution.text))
+                self.solution.text = str(eval(self.solution.text))
             except:
-                self.solution.text ="Error"
-
-
+                self.solution.text = "Error"
 
 
 if __name__ == '__main__':
